@@ -1,0 +1,457 @@
+import pickle
+import random
+import os
+import time
+ck=0
+print "SOFTWARE WILL START IN ANOTHER FEW SECONDS"
+print "SWITCH TO FULL SCREEN MODE WHILE THE SOFTWARE STARTS"
+print 'SYSTEM CHECK IN PROGRESS......'
+n=40
+print '0%',
+while n<>0:
+    if n%3==0:
+        time.sleep(0.3)
+        print '..',
+    else:
+        print '...',
+        time.sleep(0.3)
+                   
+    n-=1
+print ' 100%'
+time.sleep(2)
+print 'PROGRAM IS STARTING......'
+time.sleep(1) 
+
+class protect():
+    def _init_(self):
+        self.userid=''
+        self.passwd=''
+        self.name=''
+        self.OTP=''
+    def register(self):
+        self.userid= raw_input("enter user id")
+        self.passwd= raw_input("enter pasword")
+        self.name= raw_input("enter your name")
+        self.OTP=raw_input('enter otp used')
+    def sgnin(self):
+        return [self.userid,self.passwd,self.name,self.OTP]
+print 'SELCT YOUR CHOICE'
+print 'TO SIGN IN --->1'
+print 'TO SIGN UP--->2'
+l,r=[],[]
+q=''
+while 1:
+    a=input('PLEASE ENTER YOUR CHOICE ON THE BASIS OF ABOVE MENU ')
+    r=[]
+
+    if a==1:
+        ud=raw_input('ENTER YOUR USER ID')
+        pd=raw_input('ENTER YOUR PASSWORD')
+        fin=open('prv.dat','rb')
+        obj=protect()
+        try:
+            while 1:
+                obj=pickle.load(fin)
+                l=l+[obj.sgnin()]
+        except EOFError:
+            print '------------------------------------'
+            fin.close()
+        for i in range(len(l)):
+            if ud==l[i][0] and pd==l[i][1]:
+                print 'CONGRATULATIONS! YOU HAVE BEEN SUCCESSFULLY '
+                acs = l[i][3]
+                
+                k=1
+                break
+            if i==len(l)-1:
+                print 'INCORRECT USER ID OR PASSWORD'
+                k=-1
+        if k==1:
+            break
+    if a==2:
+        for i in range(16):
+            r.append(random.randint(0,9))
+        print 'CONTACT THE ADMIN TO OBTAIN OTP FROM THE CUSTOMER NUMBER& HAVE FULL ACCESS'
+        print 'OR USE 0000'
+        for i in range(16):
+            if (i+1)%4==0:
+                print r[i],'\t',
+            else:
+                print r[i],
+        t= str(r[0])+str(r[5])+str(r[8])+str(r[13])
+        print
+        q='sdsdfg'
+        while 1:
+            q= raw_input('enter OTP:   ')
+            if q=='0000':
+                print 'you will be granted limited access'
+                
+                break
+            if q==t:
+                break
+        fin=open('prv.dat','ab')
+        obj=protect()
+        obj.register()
+        if obj.OTP<>q:
+            print ' Please Enter OTP used initially'
+            print ' Restart Software & make sure you enter genuine details'
+            ck=-1
+            exit()
+        pickle.dump(obj,fin)
+        
+        print 'you have been registered successfully logged in'
+        print 'you need to login once again'
+        fin.close()    
+print '________________________________________________________________________________________________________________________________________________________________'
+print '                                                    |SUNBEAM ENGLISH SCHOOL|'
+print '                                                        |Estd. 1972|'
+print '                                                    |44 Years Of Excellence|'
+print '                                                 |Student Management Software|'
+print "                         Let's make a clean India---------------------> an initiative for Swach Bharat"
+
+if acs=='0000':
+    
+    print 'Login Type: Student'
+    print 'Welcome',l[i][2]
+                  
+else:
+    
+    print 'Login Type:Administrator'
+    print 'Welcome',l[i][2]
+
+class InStu(object):
+    def __init__(self):
+        self.rno=0
+        self.name=" "
+        self.dob=" "
+        self.nation=" "
+        self.sex=" "
+        self.Cat=" "
+        self.Disable=" "
+        self.city=" "
+        self.prvs_scol=" "
+        self.Trnprt=" "
+        self.email=" "
+        self.fname=" "
+        self.mname=" "
+        self.focc=" "
+        self.mocc=" "
+        self.fincm=0
+        self.current_class=" "
+        self.siblings=" "
+    def in_stu(self):
+        self.rno=input("Registration number:-")
+        self.name=raw_input("Name of student:-")
+        self.current_class=raw_input("Current class:-")
+        self.dob=raw_input("Date of birth of student:-")
+        self.fname=raw_input("Name of father:-")
+        self.mname=raw_input("Name of mother:-")
+        self.focc=raw_input("Occupation of father:-")
+        self.mocc=raw_input("Occupation of mother:-")
+        self.fincm=input("Family income p.a. in INR:-")
+        self.sex=raw_input("Gender:-")
+        self.Cat=raw_input("Category:-")
+        self.nation=raw_input("Nationality:-")
+        self.city=raw_input("City:-")
+        self.email=raw_input("E-Mail ID:-")
+        self.prvs_scol=raw_input("Name of previous school attended:-")
+        self.siblings=raw_input("Does the child have siblings ?:-")
+        self.Trnprt=raw_input("Does the child use school transport:-")
+        self.Disable=raw_input("Is the child differently abled:-")
+    def out_stu(self):
+        print "Registration number:-",self.rno
+        print "Name:-",self.name
+        print "Current class:-",self.current_class
+        print "Date of birth:-",self.dob
+        print "Father's name:-",self.fname
+        print "Mother's name:-",self.mname
+        print "Occupation of father:-",self.focc
+        print "Occupation of mother:-",self.mocc
+        print "Family income p.a. in INR:-",self.fincm
+        print "Gender:-",self.sex
+        print "Category:-",self.Cat
+        print "Nationality:-",self.nation
+        print "City of residence:-",self.city
+        print "E-Mail ID of student:-",self.email
+        print "Previous school attended:-",self.prvs_scol
+        print "Does the child has siblings ?:-",self.siblings
+        print "Does the child use school transport ?:-",self.Trnprt
+        print "Is the child differently abled ?:-",self.Disable
+    def groupsrch(self):
+        return [self.rno,self.name,self.dob,self.current_class,self.nation,self.sex,self.Cat,self.Disable,self.city,self.Trnprt,self.fincm,self.prvs_scol]
+def prntmenu():
+    print 'Operation Menu:-'
+    print '1)Add detail'
+    print '2)View all detail'
+    print '3)Indivisual Search'
+    print '4)Group Search'
+    print '5)Modify'
+    print '6)Delete'
+    print '7)Exit Software'
+prntmenu()
+def Write_rec():
+    fout=open("Student.dat","ab")
+    ob=InStu()
+    ob.in_stu()
+    pickle.dump(ob,fout)
+    fout.close()
+    print "Record added successfully"
+def MidEntry():
+    res=raw_input("Want to enter new record?")
+    if res.upper() in ['Y','Yes']:
+        print "Enter the details:-"
+        Write_rec()
+        print "Record added successfully"
+    return res
+while True:
+    ch=input("Enter the code of operation:-")
+    if ch==1:
+        if acs=='0000':
+            print "ACCESS DENIED"
+        else:
+            fout=open("Student.dat","ab")
+            print "Enter the details as required:-"
+            ob=InStu()
+            ob.in_stu()
+            pickle.dump(ob,fout)
+            print "Record added"
+            fout.close()
+            print
+            print
+    elif ch==2:
+        e=[]
+        fin=open("Student.dat","rb")
+        try:
+            while 1:
+                ob1=InStu()
+                ob1=pickle.load(fin)
+                e=e+[ob1.groupsrch()]
+        except:
+            pass
+        for i in e:
+            print i
+        print
+    elif ch==3:
+        print 'Search by:-'
+        print '1) Registration Number'
+        
+        print '2)Exit'
+        while 1:
+            ch2=raw_input('Enter Code for operation:-')
+            if ch2=='1':
+                r_no=input("Enter registration to search:-")
+                fil=open("Student.dat","rb")
+                flag=-1
+                while True:
+                    try:
+                        ob3=InStu()
+                        ob3=pickle.load(fil)
+                        if ob3.rno==r_no:
+                            print "Required details are:-"
+                            ob3.out_stu()
+                            flag=1
+                            break
+                    except EOFError:
+                        if flag<0:
+                            print "Record not found"
+                        fil.close()
+            elif ch2=='2':
+                print "Exiting indiviual search menu...."
+                time.sleep(1)
+                prntmenu()
+                break
+            else:
+                print "Invalid entry!!"
+    elif ch==4:
+        print '____________________________________________________________________________________________________________________________________________________________'
+        print 'Group Search Operation menu:-'
+        print '1) Class'
+        print '2) Gender'
+        print '3) Nationallity'
+        print '4) Category'
+        print '5) Transport'
+        print '6) City'
+        print '7) Previous School'
+        print '8) Physical Disability'
+        print '9) Exit'
+        while 1:
+            ch3=raw_input('Enter Code for operation:-')
+            o=[]
+            l=-1
+            fin=open('Student.dat','rb')
+            ob3=InStu()
+            try:
+                while 1: 
+                    ob3 = pickle.load(fin)
+                    o = o+[ob3.groupsrch()]
+            except:
+                fin.close()
+            if ch3=='1':
+                clas= raw_input('enter the class to search:-')
+                o1=[]
+                for i in o:
+                    if i[3]==clas:
+                        o1=o1+[i]
+                        
+                if o1==[]:
+                    print ' No Student Found of Specific class'
+                else:
+                    print '____________________________________________________________________________________________________________________________________________'
+                    print 'List is'
+    
+                    for i in o1:
+                        print i
+            elif ch3=='2':
+                gend= raw_input('enter the gender to search:-')
+                o2=[]
+                for i in o:
+                    if i[5]==gend:
+                        o2=o2+[i]
+                if o2==[]:
+                    print ' No Student Found of Specified Gender'
+                else:
+                    print '____________________________________________________________________________________________________________________________________________'
+                    print 'Requiired List is:'
+                    for i in o2:
+                        print i
+            elif ch3=='3':
+                nat= raw_input('enter the Nationallity to search:-')
+                o2=[]
+                for i in o:
+                    if i[4]==nat:
+                        o2=o2+[i]
+                if o2==[]:
+                    print ' No Student Found of Specified Nationallity'
+                else:
+                    print '____________________________________________________________________________________________________________________________________________'
+                    print 'Required List is'
+                    for i in o2:
+                        print i
+            elif ch3=='4':
+                cat= raw_input('enter the Category to search:-')
+                o2=[]
+                for i in o:
+                    if i[6].upper()==cat.upper():
+                        o2=o2+[i]
+                if o2==[]:
+                    print ' No Student Found of Specified category'
+                else:
+                    print '____________________________________________________________________________________________________________________________________________'
+                    print 'List is'
+                    for i in o2:
+                        print i
+            elif ch3=='5':
+                print '------------------------------------------------------'
+                print '1)for students using school transport'
+                print '2)for students not using school transport'
+                trans = raw_input('enter the code:-')
+                for i in o:
+                    if i[9].upper() in ['YES','Y','y','YES'] and trans == '1':
+                        print i   
+                    if i[9].upper() in ['no','n','NO','N'] and trans == '2':
+                        print i
+            elif ch3=='6':
+                ct= raw_input('enter the city to search:-')
+                o2=[]
+                for i in o:
+                    if i[8]==ct:
+                        o2=o2+[i]
+                if o2==[]:
+                    print ' No Student Found of Specified City'
+                else:
+                    print '____________________________________________________________________________________________________________________________________________'
+                    print 'List is'
+                    for i in o2:
+                        print i
+            elif ch3=='7':
+                prvs= raw_input('enter the previous school name to search:-')
+                o2=[]
+                for i in o:
+                    if i[11]==prvs:
+                        o2=o2+[i]
+                if o2==[]:
+                    print ' No Alumuni of the school found'
+                else:
+                    print '____________________________________________________________________________________________________________________________________________'
+                    print 'List is'
+                    for i in o2:
+                        print i
+            elif ch3=='8':
+                print '------------------------------------------------------'
+                print '1)differently abled'
+                print '2)normal'
+                trans = raw_input('enter the code:-')
+                for i in o:
+                    if i[9].upper() in ['YES','Y','y','YES'] and trans == '2':
+                        print i   
+                    if i[9].upper() in ['no','n','NO','N'] and trans == '1':
+                        print i
+            elif ch3=='9':
+                print 'Exiting Group Search...........'
+                time.sleep(1)
+                prntmenu()
+                break
+    elif ch==5:
+        if acs=='0000':
+            print 'access denied'
+            break
+        r_no=input("Enter registration number to modify:-")
+        fin=open("Student.dat","rb")
+        fout=open("Temp.dat","wb")
+        flag=False
+        try:
+            while True:
+                ob6=InStu()
+                ob6=pickle.load(fin)
+                if ob6.rno==r_no:
+                    print "Enter fresh information:-"
+                    ob6.in_stu()
+                    pickle.dump(ob6,fout)
+                    flag=True
+                    print "Record modified "
+                else:
+                    pickle.dump(ob6,fout)
+        except EOFError:
+            if flag==False:
+                print "Record not found"
+            fin.close()
+            fout.close()
+        os.remove("Student.dat")
+        os.rename("Temp.dat","Student.dat")
+    elif ch==6:
+        if acs=='0000':
+            print 'access denied'
+            break
+
+        r_no=input("Enter registration number to delete:-")
+        fin=open("Student.dat","rb")
+        fout=open("Temp.dat","wb")
+        flag=False
+        try:
+            while True:
+                ob6=InStu()
+                ob6=pickle.load(fin)
+                if ob6.rno==r_no:
+                    
+                    
+                    
+                    flag=True
+                    print "Record deleted "
+                else:
+                    pickle.dump(ob6,fout)
+        except EOFError:
+            if flag==False:
+                print "Record not found"
+            fin.close()
+            fout.close()
+        os.remove("Student.dat")
+        os.rename("Temp.dat","Student.dat")
+    elif ch==7:
+        print "Exiting software..."
+        print "Closing files..."
+        time.sleep(2)
+        print "Have a nice day"
+        exit()
+    else:
+        print "Wrong Choice"
+    
